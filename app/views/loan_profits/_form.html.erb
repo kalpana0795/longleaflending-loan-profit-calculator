@@ -1,0 +1,37 @@
+<%= form_with url: calculate_loan_profit_path, data: { turbo_frame: 'loan_profit_form' } do |form| %>
+  <div>
+    <%= form.label :target_property %><br>
+    <%= form.text_field :target_property %>
+  </div>
+  <div>
+    <%= form.label :loan_term %><br>
+    <%= form.text_field :loan_term %>
+  </div>
+  <div>
+    <%= form.label :purchase_price %><br>
+    <%= form.text_field :purchase_price %>
+  </div>
+  <div>
+    <%= form.label :repair_budget %><br>
+    <%= form.text_field :repair_budget %>
+  </div>
+  <div>
+    <%= form.label :after_repair_value %><br>
+    <%= form.text_field :after_repair_value %>
+  </div>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %>
+  </div>
+  <div>
+    <%= form.label :phone %><br>
+    <%= form.text_field :phone %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
