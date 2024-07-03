@@ -1,3 +1,10 @@
-<p>The calculated profit is: <%= number_to_currency(profit) %></p>
+<div class="bg-gray-100 p-8 rounded-lg shadow-lg">
+  <div class="mx-auto max-w-2xl text-center">
+    <h1 class="text-2xl">Thanks, Here are those figures we promised.</h1>
+    <h1 class="text-2xl">And again, check your email for the Longleaf term sheet</h1>
+    <p>Your Estimated Profit: <%= number_to_currency(profit) %></p>
+    <p>Return Rate: <%= number_to_currency(profit) %></p>
+  </div>
+</div>
 
-<%= link_to 'Calculate Again', new_loan_profit_path %>
+<%#= link_to 'Calculate Again', new_loan_profit_path %>

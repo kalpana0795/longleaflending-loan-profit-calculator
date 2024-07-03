@@ -6,10 +6,22 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= turbo_include_tags %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
   </head>
 
   <body>
-    <%= yield %>
+    <main class="container mx-auto mt-14 px-6">
+      <header class="bg-white">
+        <%= render 'layouts/nav' %>
+      </header>
+
+      <%= yield %>
+
+      <footer class="bg-white">
+        <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+          <p class="mt-10 text-center text-xs leading-5 text-gray-500">© 2024 Longleaf Lending, LLC. All rights reserved.</p>
+        </div>
+      </footer>
+    </main>
   </body>
 </html>
