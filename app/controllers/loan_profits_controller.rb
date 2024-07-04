@@ -4,6 +4,7 @@ class LoanProfitsController < ApplicationController
 
     @estimated_profit = results[:estimated_profit].round(2)
     @return_rate = results[:return_rate].round(2)
+    @user_name = "#{user_params[:first_name]} #{user_params[:last_name]}"
 
     GenerateAndEmailTermsheetJob.perform_later(loan_params, user_params, results)
 
@@ -20,6 +21,6 @@ class LoanProfitsController < ApplicationController
   end
 
   def user_params
-    params.permit(:name, :email, :phone)
+    params.permit(:first_name, :last_name, :email, :phone)
   end
 end

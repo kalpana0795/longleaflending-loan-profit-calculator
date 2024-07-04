@@ -57,7 +57,7 @@ class TermsheetGenerator < ApplicationService
 
   def user_details
     [
-      "Name: #{user_params[:name]}",
+      "Name: #{user_params[:first_name]} #{user_params[:last_name]}",
       "Email: #{user_params[:email]}",
       "Phone: #{user_params[:phone]}"
     ]

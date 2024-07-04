@@ -1,47 +1,101 @@
-<div class="bg-gray-100 p-8 rounded-lg shadow-lg">
+<div class="bg-gray-100 p-8 rounded-lg shadow-lg" data-controller="forms">
   <%= form_with url: calculate_loan_profit_path, data: { turbo_frame: 'loan_profit_form' }, class: "space-y-6" do |form| %>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+    <div data-forms-target="step" class="step mx-auto w-3/5">
       <div class="space-y-2">
-        <%= form.label :target_property, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :target_property, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
+        <%= form.label :target_property, 'Target Property*', class: "block text-2xl text-gray-900" %>
+        <p class="text-lg text-gray-500">Address, City, State, & Zip for your target property</p>
+        <%= form.text_field :target_property, required: true, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
       </div>
-      <div class="space-y-2">
-        <%= form.label :loan_term, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :loan_term, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <div class="space-y-2">
-        <%= form.label :purchase_price, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :purchase_price, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
-      </div>
-      <div class="space-y-2">
-        <%= form.label :repair_budget, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :repair_budget, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
+      <div class="flex justify-end mt-4">
+        <button data-step="1" data-action="click->forms#nextStep" class="py-2 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Next</button>
       </div>
     </div>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+    <div data-forms-target="step" class="step hidden mx-auto w-3/5">
       <div class="space-y-2">
-        <%= form.label :after_repair_value, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :after_repair_value, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
+        <%= form.label :loan_term, 'Loan Term*', class: "block text-2xl text-gray-900" %>
+        <p class="text-lg text-gray-500">How many months do you want the loan for (up to 12)?</p>
+        <%= form.text_field :loan_term, required: true, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
       </div>
-      <div class="space-y-2">
-        <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :name, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <div class="space-y-2">
-        <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :email, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
-      </div>
-      <div class="space-y-2">
-        <%= form.label :phone, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.text_field :phone, class: "block w-full p-2.5 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500" %>
+      <div class="flex justify-between mt-4">
+        <button data-step="2" data-action="click->forms#previousStep" class="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Back</button>
+        <button data-step="2" data-action="click->forms#nextStep" class="py-2 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Next</button>
       </div>
     </div>
-    <div>
-      <%= form.submit class: "w-full py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500" %>
+
+    <div data-forms-target="step" class="step hidden mx-auto w-3/5">
+      <div class="space-y-2">
+        <%= form.label :purchase_price, 'Purchase Price*', class: "block text-2xl text-gray-900" %>
+        <p class="text-lg text-gray-500">What are you purchasing the property for? Please include any assignment fee.</p>
+        <p class="text-lg text-gray-500">*Our sample term sheet will set a maximum loan-to-cost of 90%.</p>
+        <%= form.text_field :purchase_price, required: true, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
+      </div>
+      <div class="flex justify-between mt-4">
+        <button data-step="3" data-action="click->forms#previousStep" class="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Back</button>
+        <button data-step="3" data-action="click->forms#nextStep" class="py-2 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Next</button>
+      </div>
+    </div>
+    
+    <div data-forms-target="step" class="step hidden mx-auto w-3/5">
+      <div class="space-y-2">
+        <%= form.label :repair_budget, 'Estimated Repair Budget*', class: "block text-2xl text-gray-900" %>
+        <p class="text-lg text-gray-500">Full budget expected to rehab the property.</p>
+        <%= form.text_field :repair_budget, required: true, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
+      </div>
+      <div class="flex justify-between mt-4">
+        <button data-step="4" data-action="click->forms#previousStep" class="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Back</button>
+        <button data-step="4" data-action="click->forms#nextStep" class="py-2 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Next</button>
+      </div>
+    </div>
+    
+    <div data-forms-target="step" class="step hidden mx-auto w-3/5">
+      <div class="space-y-2">
+        <%= form.label :after_repair_value, 'After Repair Value*', class: "block text-2xl text-gray-900" %>
+        <p class="text-lg text-gray-500">What do you think the property's market value will be when you complete the rehab?</p>
+        <p class="text-lg text-gray-500">*Our sample term sheet will set a maximum loan-to-value of 70%</p>
+        <%= form.text_field :after_repair_value, required: true, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
+      </div>
+      <div class="flex justify-between mt-4">
+        <button data-step="5" data-action="click->forms#previousStep" class="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Back</button>
+        <button data-step="5" data-action="click->forms#nextStep" class="py-2 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Next</button>
+      </div>
+    </div>
+    
+    <div data-forms-target="step" class="step hidden mx-auto w-3/5">
+      <p class="text-2xl text-gray-900 space-y-2">Contact Information*</p>
+      <p class="text-lg text-gray-500 space-y-2">Thanks for providing those details!</p>
+      <p class="text-lg text-gray-500 space-y-2">Complete the contact information below to <b>immediately</b> see your estimated profit and return figures for this property.</p>
+      <p class="text-lg text-gray-500 space-y-2">Check your email for a sample term sheet with additional loan information.</p>
+      <p class="text-lg text-gray-500 space-y-2">We are looking forward to working with you on this loan!</p>
+      <div class="mt-4">
+        <%= form.label :first_name, 'First Name*', class: "block text-s text-gray-900" %>
+        <%= form.text_field :first_name, required: true, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
+      </div>
+      <div class="mt-4">
+        <%= form.label :last_name, 'Last Name', class: "block text-s text-gray-900" %>
+        <%= form.text_field :last_name, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+      </div>
+      <div class="mt-4">
+        <%= form.label :email, 'Email*', class: "block text-s text-gray-900" %>
+        <%= form.text_field :email, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
+      </div>
+      <div class="mt-4">
+        <%= form.label :phone, 'Phone Number*', class: "block text-s text-gray-900" %>
+        <%= form.text_field :phone, required: true, class: "block w-full bg-transparent border-l-0 border-r-0 border-t-0 border-b-2 border-gray-300 text-gray-900 focus:border-emerald-500 focus:ring-0" %>
+        <p class="hidden text-red-500 text-s mt-1 error-message" data-forms-target="error">This field is required.</p>
+      </div>    
+      <div class="flex justify-between mt-4">
+        <button data-step="6" data-action="click->forms#previousStep" class="py-2 px-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Back</button>
+        <%= form.submit "Submit", class: "py-2 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500" %>
+      </div>
     </div>
   <% end %>
 </div>
