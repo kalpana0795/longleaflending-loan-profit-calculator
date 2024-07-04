@@ -2,7 +2,10 @@ class LoanProfitsController < ApplicationController
   def calculate
     results = ProfitCalculator.call(loan_params)
 
-    @estimated_profit, @return_rate = results[:estimated_profit], results[:return_rate]
+    @estimated_profit = results[:estimated_profit].round(2)
+    @return_rate = results[:return_rate].round(2)
+
+    GenerateAndEmailTermsheetJob.perform_later(loan_params, user_params, results)
 
     respond_to do |format|
       format.turbo_stream

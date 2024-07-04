@@ -23,6 +23,8 @@ class ProfitCalculator < ApplicationService
     return_rate = (estimated_profit / total_investment) * 100
 
     {
+      loan_amount: max_fundable_amount,
+      interest_expense: total_interest_expense,
       estimated_profit: estimated_profit,
       return_rate: return_rate
     }
