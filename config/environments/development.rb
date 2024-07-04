@@ -48,6 +48,7 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   # Highlight code that enqueued background job in logs.
+  config.active_job.queue_adapter = :sidekiq
   config.active_job.verbose_enqueue_logs = true
 
   # Suppress logger output for asset requests.
