@@ -12,7 +12,7 @@ class ProfitCalculator < ApplicationService
     max_loan_by_purchase_price = 0.9 * purchase_price
     max_loan_by_arv = 0.7 * after_repair_value
 
-    max_fundable_amount = [max_loan_by_purchase_price + repair_budget, max_loan_by_arv].min
+    max_fundable_amount = [(max_loan_by_purchase_price + repair_budget), max_loan_by_arv].min
 
     monthly_interest_rate = 0.13 / 12
     total_interest_expense = max_fundable_amount * (1 + monthly_interest_rate) ** loan_term - max_fundable_amount
@@ -23,10 +23,10 @@ class ProfitCalculator < ApplicationService
     return_rate = (estimated_profit / total_investment) * 100
 
     {
-      loan_amount: max_fundable_amount,
-      interest_expense: total_interest_expense,
-      estimated_profit: estimated_profit,
-      return_rate: return_rate
+      loan_amount: max_fundable_amount.round(2),
+      interest_expense: total_interest_expense.round(2),
+      estimated_profit: estimated_profit.round(2),
+      return_rate: return_rate.round(2)
     }
   end
 end

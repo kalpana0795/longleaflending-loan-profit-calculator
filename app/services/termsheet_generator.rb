@@ -17,42 +17,56 @@ class TermsheetGenerator < ApplicationService
   private
 
   def generate_pdf
-    Prawn::Document.generate('termsheet.pdf') do |pdf|
-      pdf.font "Helvetica"
-      
-      # Title
-      pdf.text "Loan Profit Termsheet", size: 24, style: :bold, align: :center
-      pdf.move_down 20
+    pdf = Prawn::Document.new
+    pdf.font "Helvetica"
+    
+    generate_title(pdf)
+    generate_user_details(pdf)
+    generate_input_details(pdf)
+    generate_calculated_values(pdf)
+    generate_terms(pdf)
+    generate_footer(pdf)
 
-      # User Details Section
-      pdf.text "User Details", size: 18, style: :bold
-      pdf.move_down 10
-      user_details.each do |detail|
-        pdf.text detail, size: 12
-        pdf.move_down 5
-      end
-      pdf.move_down 20
-      
-      # Input Details Section
-      pdf.text "Input Details", size: 18, style: :bold
-      pdf.move_down 10
-      pdf.table(input_details_table)
-      pdf.move_down 20
+    save_pdf(pdf)
+  end
 
-      # Calculated Values Section
-      pdf.text "Estimated Loan Details", size: 18, style: :bold
-      pdf.move_down 10
-      pdf.table(calculated_values_table)
-      pdf.move_down 20
+  def generate_title(pdf)
+    pdf.text "Loan Profit Termsheet", size: 24, style: :bold, align: :center
+    pdf.move_down 20
+  end
 
-      # Terms Section
-      pdf.text "Terms", size: 18, style: :bold
-      pdf.move_down 10
-      pdf.text longleaf_lending_terms
-
-      # Footer
-      pdf.number_pages "<page> of <total>", at: [pdf.bounds.right - 50, 0]
+  def generate_user_details(pdf)
+    pdf.text "User Details", size: 18, style: :bold
+    pdf.move_down 10
+    user_details.each do |detail|
+      pdf.text detail, size: 12
+      pdf.move_down 5
     end
+    pdf.move_down 20
+  end
+
+  def generate_input_details(pdf)
+    pdf.text "Input Details", size: 18, style: :bold
+    pdf.move_down 10
+    pdf.table(input_details_table)
+    pdf.move_down 20
+  end
+
+  def generate_calculated_values(pdf)
+    pdf.text "Estimated Loan Details", size: 18, style: :bold
+    pdf.move_down 10
+    pdf.table(calculated_values_table)
+    pdf.move_down 20
+  end
+
+  def generate_terms(pdf)
+    pdf.text "Terms", size: 18, style: :bold
+    pdf.move_down 10
+    pdf.text longleaf_lending_terms
+  end
+
+  def generate_footer(pdf)
+    pdf.number_pages "<page> of <total>", at: [pdf.bounds.right - 50, 0]
   end
 
   def user_details
@@ -75,10 +89,10 @@ class TermsheetGenerator < ApplicationService
 
   def calculated_values_table
     [
-      ["Loan Amount ($)", calculated_values[:loan_amount].round(2)],
-      ["Interest Expense ($)", calculated_values[:interest_expense].round(2)],
-      ["Estimated Profit ($)", calculated_values[:estimated_profit].round(2)],
-      ["Return Rate (%)", calculated_values[:return_rate].round(2)]
+      ["Loan Amount ($)", calculated_values[:loan_amount]],
+      ["Interest Expense ($)", calculated_values[:interest_expense]],
+      ["Estimated Profit ($)", calculated_values[:estimated_profit]],
+      ["Return Rate (%)", calculated_values[:return_rate]]
     ]
   end
 
@@ -93,5 +107,11 @@ class TermsheetGenerator < ApplicationService
     
     For more details, please contact us at support@longleaflending.com.
     TEXT
+  end
+
+  def save_pdf(pdf)
+    filename = Rails.root.join('tmp', 'termsheet.pdf')
+    pdf.render_file(filename)
+    filename
   end
 end

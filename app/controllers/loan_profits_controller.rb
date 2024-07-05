@@ -1,12 +1,12 @@
 class LoanProfitsController < ApplicationController
   def calculate
-    results = ProfitCalculator.call(loan_params)
+    results = ProfitCalculator.call(loan_params.to_h)
 
-    @estimated_profit = results[:estimated_profit].round(2)
-    @return_rate = results[:return_rate].round(2)
+    @estimated_profit = results[:estimated_profit]
+    @return_rate = results[:return_rate]
     @user_name = "#{user_params[:first_name]} #{user_params[:last_name]}"
 
-    GenerateAndEmailTermsheetJob.perform_later(loan_params, user_params, results)
+    GenerateAndEmailTermsheetJob.perform_later(loan_params.to_h, user_params.to_h, results)
 
     respond_to do |format|
       format.turbo_stream
