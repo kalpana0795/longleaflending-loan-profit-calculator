@@ -1,7 +1,22 @@
 <div class="bg-gray-100 p-8 rounded-lg shadow-lg" data-controller="forms">
+  <div class="flex lg:flex-1">
+    <a href="/" class="-m-1.5 p-1.5">
+      <span class="sr-only">Your Company</span>
+      <img class="h-12 w-auto" alt="Longleaf Lending Logo" src="/assets/longleaf_lending_logo">
+    </a>
+  </div>
   <%= form_with url: calculate_loan_profit_path, data: { turbo_frame: 'loan_profit_form' }, class: "space-y-6" do |form| %>
 
     <div data-forms-target="step" class="step mx-auto w-3/5">
+      <div class="space-y-2 justify-center flex">
+        <p class="text-2xl text-gray-700"><b>Start Here</b></p>
+      </div>
+      <div class="flex justify-center mt-4">
+        <button data-step="0" data-action="click->forms#showFirstStep" class="py-2 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">Calculate my Profit</button>
+      </div>
+    </div>
+
+    <div data-forms-target="step" class="step hidden mx-auto w-3/5">
       <div class="space-y-2">
         <%= form.label :target_property, 'Target Property*', class: "block text-2xl text-gray-900" %>
         <p class="text-lg text-gray-500">Address, City, State, & Zip for your target property</p>

@@ -13,6 +13,12 @@ export default class extends Controller {
     })
   }
 
+  showFirstStep(event) {
+    event.preventDefault()
+    this.currentStep++
+    this.showCurrentStep()
+  }
+
   nextStep(event) {
     event.preventDefault()
     if (this.validateCurrentStep()) {

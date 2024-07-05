@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Class responsible for calculation the loan amount and estimated profit
 class ProfitCalculator < ApplicationService
   attr_accessor :purchase_price, :repair_budget, :after_repair_value, :loan_term
 
@@ -15,7 +18,7 @@ class ProfitCalculator < ApplicationService
     max_fundable_amount = [(max_loan_by_purchase_price + repair_budget), max_loan_by_arv].min
 
     monthly_interest_rate = 0.13 / 12
-    total_interest_expense = max_fundable_amount * (1 + monthly_interest_rate) ** loan_term - max_fundable_amount
+    total_interest_expense = max_fundable_amount * (1 + monthly_interest_rate)**loan_term - max_fundable_amount
 
     estimated_profit = after_repair_value - max_fundable_amount - total_interest_expense
 

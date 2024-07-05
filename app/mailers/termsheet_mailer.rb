@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/mailers/loan_profit_mailer.rb
 class TermsheetMailer < ApplicationMailer
   def email(user_name, user_email, pdf_path)
