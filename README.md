@@ -34,6 +34,7 @@ For scalability, background jobs offload time-consuming tasks like generating th
 
 #### Future Enhancements
 
+* Database can be integrated to store the user details and use for further communications like sending weekly newsletters.
 * Authentication and authorization can be implemented for better security.
 * More server side validations can be added to ensure the validity of form data.
 * Error notifiers can be integrated as well as error classes can be introduced.
